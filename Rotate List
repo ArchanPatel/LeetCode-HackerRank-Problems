@@ -1,0 +1,28 @@
+class Solution {
+    public ListNode rotateRight(ListNode head, int k) {
+        if(head == null || k == 0 || head.next == null)
+            return head;
+        
+        ListNode curr = head;
+        int length = 1;
+        
+        //obtain last node
+        while(curr.next != null) {
+            length++;
+            curr = curr.next;
+        }
+        
+        //this creates a circular list
+        curr.next = head; 
+        
+        //determine where to break circle
+        k = k % length;
+        for( int  i = 0; i < length - k; i++) 
+            curr = curr.next;
+        head = curr.next;
+        
+        //break circle
+        curr.next = null;
+        return head;
+    }
+}
