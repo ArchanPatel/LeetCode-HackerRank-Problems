@@ -1,0 +1,90 @@
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+
+
+class Result {
+
+    /*
+     * Complete the 'findMaximum' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts following parameters:
+     *  1. INTEGER_ARRAY arr
+     *  2. INTEGER m
+     */
+
+    public static int findMaximum(List<Integer> arr, int m) {
+        
+        int globalMaximum = 0;
+        Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
+        
+        for (int j=0; j<m; m++){
+            List<Integer> subSeq = new ArrayList<Integer>();
+            subSeq.addAll(arr);
+            subSeq.remove(j);
+           
+           
+           map.put(j, subSeq);
+           subSeq.clear();
+        }
+        
+        
+        for (int i=0; i<map.size(); i++) {
+            int currentMinimum = (int)Math.pow(10, 18);
+            
+            List<Integer> specificMap = new ArrayList<Integer>();
+            specificMap = map.get(i);
+            
+            for (int j=1; j < specificMap.size()+1; j++){
+                int absDiff = Math.abs(specificMap.get(j-1) - specificMap.get(j));
+                
+                if (currentMinimum > absDiff){
+                    currentMinimum = absDiff;
+                }
+            }
+            if (currentMinimum > globalMaximum){
+                globalMaximum = currentMinimum;
+            }
+        }
+        return globalMaximum;
+    }
+
+}
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int arrCount = Integer.parseInt(bufferedReader.readLine().trim());
+
+        List<Integer> arr = IntStream.range(0, arrCount).mapToObj(i -> {
+            try {
+                return bufferedReader.readLine().replaceAll("\\s+$", "");
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        })
+            .map(String::trim)
+            .map(Integer::parseInt)
+            .collect(toList());
+
+        int m = Integer.parseInt(bufferedReader.readLine().trim());
+
+        int result = Result.findMaximum(arr, m);
+
+        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.newLine();
+
+        bufferedReader.close();
+        bufferedWriter.close();
+    }
+}
