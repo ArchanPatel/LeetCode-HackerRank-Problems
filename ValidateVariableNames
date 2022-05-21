@@ -1,0 +1,33 @@
+boolean solution(String[] words, String variableName) {
+    if (variableName.contains(" ")){
+        return false;
+    }
+    
+    int startIdx = 0;
+    boolean valid = false;
+    for (int i=0; i<variableName.length(); i++){
+        if (Character.isUpperCase(variableName.charAt(i))){
+            if (i == 0){
+                continue;
+            }
+            valid = containsSpecific(words, variableName.substring(startIdx, i));
+            if (!valid) {
+                return false;
+            }
+            startIdx = i;
+        }
+    }
+    if (startIdx == 0){
+        valid = containsSpecific(words, variableName);
+    }
+    return valid;
+}
+
+boolean containsSpecific (String[] words, String currString){
+    for (int i=0; i<words.length; i++){
+        if (words[i].equalsIgnoreCase(currString)){
+            return true;
+        }
+    }
+    return false;
+}
