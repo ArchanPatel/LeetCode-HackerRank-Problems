@@ -1,0 +1,28 @@
+class Solution {
+    public int reverse(int x) {
+        
+        int start = 0;
+        int reversed = 0;
+        boolean neg = false;
+        
+        if (x<0){
+            x *= -1;
+            neg = true; 
+        }
+        
+        while (x != 0){
+            start = x%10;
+            x /= 10;
+                    
+            if (reversed > Integer.MAX_VALUE/10 || (reversed == Integer.MAX_VALUE / 10 && start > 7)) return 0;
+            if (reversed < Integer.MIN_VALUE/10 || (reversed == Integer.MIN_VALUE / 10 && start < -8)) return 0;
+            
+            reversed = reversed*10 + start;
+        }
+        
+        if (neg)
+            return -1*reversed;
+        else
+            return reversed;
+    }
+}
