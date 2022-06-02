@@ -1,0 +1,85 @@
+class Solution {
+    public String intToRoman(int num) {
+        // 38 = 30 + 8 = XXXVIII
+
+
+        // 2002 = 2000 + 2 = MMII
+
+        // 2022 = 2000 + 20 + 2 = MMXXII
+
+        HashMap<Integer, String> romanEquiv = new HashMap<>();
+
+        romanEquiv.put(1, "I");
+        romanEquiv.put(5, "V");
+        romanEquiv.put(10, "X");
+        romanEquiv.put(50, "L");
+        romanEquiv.put(100, "C");
+        romanEquiv.put(500, "D");
+        romanEquiv.put(1000, "M");
+
+        String answer = "";
+        int value = 0;
+
+        while (value <= num){
+
+            if (num >= value + 1000){
+                value += 1000;
+                answer += romanEquiv.get(1000);
+            } 
+            else if (num >= value + 900){
+                value += 900;
+                answer = answer + romanEquiv.get(100) + romanEquiv.get(1000);
+            }
+            else if (num >= value + 500){
+                value += 500;
+                answer += romanEquiv.get(500);
+            }
+            else if (num >= value + 400){
+                value += 400;
+                answer = answer + romanEquiv.get(100) + romanEquiv.get(500);
+            }
+            else if (num >= value + 100){
+                value += 100;
+                answer += romanEquiv.get(100);
+            }
+            else if (num >= value + 90){
+                value += 90;
+                answer = answer + romanEquiv.get(10) + romanEquiv.get(100);
+            }
+            else if (num >= value + 50){
+                value += 50;
+                answer += romanEquiv.get(50);
+            }
+            else if (num >= value + 40){
+                value += 40;
+                answer = answer + romanEquiv.get(10) + romanEquiv.get(50);
+            }
+            else if (num >= value + 10){
+                value += 10;
+                answer += romanEquiv.get(10);
+            }
+            else if (num >= value + 9){
+                value += 9;
+                answer = answer + romanEquiv.get(1) + romanEquiv.get(10);
+            }
+            else if (num >= value + 5){
+                value += 5;
+                answer += romanEquiv.get(5);
+            }
+            else if (num >= value + 4){
+                value += 4;
+                answer = answer + romanEquiv.get(1) + romanEquiv.get(4);
+            }
+            else if (num >= value + 1){
+                value ++;
+                answer += romanEquiv.get(1);
+            }
+            if (value == num)
+                break;
+
+        }        
+
+        return answer;
+        // 2022 = 1000 + 1000 + 10 + 10 + 1 + 1 = MMXXII
+    }
+}
