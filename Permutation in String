@@ -1,0 +1,37 @@
+class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+        int left = 0;
+        int valid = 0;
+
+        Map<Character, Integer> need = new HashMap<>();//store the char frequency of s1
+        Map<Character, Integer> window = new HashMap<>();//only store the char in s2 that appear in s1
+
+        for (int i = 0; i < s1.length(); i++) {
+            need.put(s1.charAt(i), need.getOrDefault(s1.charAt(i), 0) + 1);
+        }
+
+        for (int right = 0; right < s2.length(); right++) {
+            char c = s2.charAt(right);
+            if (need.containsKey(c)) {//check if the char c appears in need map
+                window.put(c, window.getOrDefault(c, 0) + 1);
+                if (need.get(c).equals(window.get(c))) {
+                    valid++;
+                }
+            }
+
+
+            while(right - left + 1 >= s1.length()) {
+                if (valid == need.size()) return true;//return
+                char r = s2.charAt(left);//or shrink the window, move the left pointer to the right
+                if (need.containsKey(r)) {
+                    if (window.get(r).equals(need.get(r))) {
+                        valid--;
+                    }
+                    window.put(r, window.get(r) - 1);
+                }
+                left++;
+            }
+        }
+        return false;
+    }
+}
