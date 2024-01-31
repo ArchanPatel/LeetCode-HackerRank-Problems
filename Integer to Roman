@@ -2,7 +2,6 @@ class Solution {
     public String intToRoman(int num) {
         // 38 = 30 + 8 = XXXVIII
 
-
         // 2002 = 2000 + 2 = MMII
 
         // 2022 = 2000 + 20 + 2 = MMXXII
