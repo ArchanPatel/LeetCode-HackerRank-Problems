@@ -1,0 +1,27 @@
+
+function solution() {
+    // write your code in Javascript
+    //
+    // you can access DOM Tree by using DOM Object Model:
+    //    document.getElementsByTagName
+    // or by using jQuery:
+    //    $('some_tag')
+
+    var tables = document.getElementsByTagName('table')
+
+    if (tables.length === 0) {
+        return 0;
+    }
+
+    var maxCellCount = 0;
+
+    for (var i = 0; i < tables.length; i++){
+        var cellCount = tables[i].getElementsByTagName('td').length;
+
+        if (cellCount > maxCellCount){
+            maxCellCount = cellCount;
+        }
+    }
+
+    return maxCellCount;
+}
