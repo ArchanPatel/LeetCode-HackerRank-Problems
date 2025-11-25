@@ -1,0 +1,24 @@
+class Solution {
+    fun longestConsecutive(nums: IntArray): Int {
+        if (nums.isEmpty()){
+            return 0
+        }
+
+        val numsSet = nums.toHashSet()
+        var maxSequence = 0
+
+        for (num in numsSet) {
+            if ((num - 1) !in numsSet){
+                var count = 0
+                var number = num
+                while (number in numsSet) {
+                    number++
+                    count++
+                }
+            
+                maxSequence = maxOf(maxSequence, count)
+            }
+        }
+        return maxSequence
+    }
+}
