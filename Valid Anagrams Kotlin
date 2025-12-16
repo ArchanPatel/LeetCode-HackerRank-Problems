@@ -1,0 +1,15 @@
+class Solution {
+    fun isAnagram(s: String, t: String): Boolean {
+
+        val freqS = mutableMapOf<Char, Int>()
+        val freqT = mutableMapOf<Char, Int>()
+        for (str in s) {
+            freqS[str] = (freqS[str] ?: 0) + 1
+        }
+        for (str in t){
+            freqT[str] = (freqT[str] ?: 0) + 1
+        }
+
+        return if (freqS == freqT) true else false
+    }
+}
