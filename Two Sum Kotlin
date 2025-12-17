@@ -1,0 +1,16 @@
+class Solution {
+    fun twoSum(nums: IntArray, target: Int): IntArray {
+        val compliments = mutableMapOf<Int, Int>()
+
+        nums.forEachIndexed { i, value -> 
+            val compliment = target - value
+            if (compliments.containsKey(compliment)) {
+                return intArrayOf(compliments[compliment] ?: 0, i)
+            } else {
+                compliments[value] = i
+            }
+            
+        }
+        return intArrayOf()
+    }
+}
