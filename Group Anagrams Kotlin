@@ -1,0 +1,15 @@
+class Solution {
+    fun groupAnagrams(strs: Array<String>): List<List<String>> {
+        val groups = mutableMapOf<String, MutableList<String>>()
+
+        for (s in strs){
+            val freq = IntArray(26)
+            for (char in s)
+                freq[char - 'a']++
+            
+            val key = freq.joinToString(",")
+            groups.getOrPut(key) {mutableListOf()}.add(s)
+        }
+        return groups.values.toList()
+    }
+}
