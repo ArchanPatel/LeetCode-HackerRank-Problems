@@ -1,0 +1,22 @@
+class Solution {
+    fun topKFrequent(nums: IntArray, k: Int): IntArray {
+        val map = mutableMapOf<Int, Int>()
+        nums.forEach {num ->
+            map[num] = map.getOrDefault(num, 0) +1
+        }
+
+        val buckets = Array(nums.size+1) { mutableListOf<Int>() }
+        for ((num, count) in map) {
+            buckets[count].add(num)
+        }
+
+        val result = mutableListOf<Int>()
+        for (i in buckets.indices.reversed()){
+            for (num in buckets[i]){
+                result.add(num)
+                if (result.size == k) return result.toIntArray()
+            }
+        }
+        return result.toIntArray()        
+    }
+}
